@@ -1,19 +1,19 @@
 var express = require("express");
-var router = express.Router();
-let vehicles = require("./vehicles");
+var app = express.Router();
+let controller = require("../controllers/vehicles-controller");
 
 app.get("/vehicles", function(req, res) {
-  res.json(vehicles);
+  res.json(controller.list());
 });
 
-app.get("vehicles/:id", (req, res) => {
+app.get("/vehicles/:id", (req, res) => {
   let vehicleId = req.paramas.id;
-  let vehicle = state.vehicle.find(u => u._id == vehicleId);
-  res.json(vehicle);
+  res.json(controller.show(vehicleId));
 });
 
 app.post("/vehicles", function(req, res) {
-  vehicles.push(req.body);
+  controller.create(req.body);
   res.json(vehicles);
 });
-module.exports = router;
+
+module.exports = app;

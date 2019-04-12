@@ -1,19 +1,19 @@
 var express = require("express");
-var router = express.Router();
-let contacts = require("./contacts");
+var app = express.Router();
+let controller = require("../controllers/contacts-controller");
 
 app.get("/contacts", function(req, res) {
-  res.json(contacts);
+  res.json(controller.list());
 });
 
 app.get("/contacts/:id", (req, res) => {
   let contactId = req.paramas.id;
-  let contact = state.contact.find(u => u._id == contactId);
-  res.json(contact);
+  res.json(controller.show(contactId));
 });
 
 app.post("/contacts", function(req, res) {
-  contacts.push(req.body);
+  controller.create(req.body);
   res.json(contacts);
 });
-module.exports = router;
+
+module.exports = app;
